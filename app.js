@@ -1,6 +1,15 @@
-const path = require('path');
+const chalk = require('chalk');
+const log = console.log;
 const { execFileSync } = require('child_process');
-
+const fs = require('fs');
+const path = require('path');
+const options = {
+    encoding: 'utf-8'
+};
+const pkgInfo = JSON.parse(fs.readFileSync(`${resolve('package.json')}`, 'utf-8'));
+function resolve(dir) {
+    return path.join(__dirname, `./${dir}`);
+}
 function dumpVersion(version, channel = '', maxV = 99) {
     const oldV = version;
     let a = oldV.split('.');
@@ -21,25 +30,25 @@ function dumpVersion(version, channel = '', maxV = 99) {
  *  */
 (async function () {
     try {
-        const checkMaster = await execFileSync('git', ['checkout', 'main'], { encoding: 'utf-8' });
-        console.log('master分支检出完毕', checkMaster);
+        const checkMaster = await execFileSync('git', ['checkout', 'main'], { ...options });
+        log(chalk.green(`${pkgInfo.name}==>master分支检出完毕${checkMaster}`));
         const versionList = await JSON.parse(
-            execFileSync('npm.cmd', ['info', 'branck-test', 'versions', '--json'], { encoding: 'utf-8' })
+            execFileSync('npm.cmd', ['info', 'branck-test', 'versions', '--json'], { ...options })
         );
         const version = versionList.pop();
-        console.log('最新的版本号', version);
+        if (!version) version = '1.0.0';
+        log(chalk.green(`${pkgInfo.name}==>最新的版本号${chalk.blue.underline.bold(version)}`));
         const new_version = dumpVersion(version);
-        console.log('版本号更新完毕', new_version);
-        const updateV = await execFileSync('yarn.cmd', ['version', '--new-version', new_version], {
-            encoding: 'utf-8'
-        });
-        console.log(updateV);
-        const tag1 = execFileSync('git', ['push', '--tags'], { encoding: 'utf-8' });
-        console.log('tag1创建完毕', tag1);
-        const tag2 = execFileSync('git', ['push', '--follow-tags'], { encoding: 'utf-8' });
-        console.log('tag1创建完毕', tag2);
-        const publish = execFileSync('npm.cmd', ['publish'], { encoding: 'utf-8' });
-        console.log('包发布完毕', publish);
+        log(chalk.green(`${pkgInfo.name}==>版本号更新完毕${chalk.blue.underline.bold(new_version)}`));
+        const updateV = await execFileSync('yarn.cmd', ['version', '--new-version', new_version], { ...options });
+        log(chalk.green(updateV));
+        const tag1 = execFileSync('git', ['push', '--tags'], { ...options });
+        log(chalk.green(`${pkgInfo.name}==>tag创建完毕${tag1}`));
+        const tag2 = execFileSync('git', ['push', '--follow-tags'], { ...options });
+        log(chalk.green(`${pkgInfo.name}项目==>follow-tags创建完毕${tag2}`));
+        const publish = execFileSync('npm.cmd', ['publish'], { ...options });
+        log(chalk.green(`${pkgInfo.name}项目==>包发布完毕${publish}`));
+        // Todo 是否执行安装依赖
     } catch (error) {
         console.log(error);
     }

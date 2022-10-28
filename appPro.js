@@ -4,7 +4,9 @@ const { execFileSync } = require('child_process');
 function resolve(dir) {
     return path.join(__dirname, `./${dir}`);
 }
-
+const options = {
+    encoding: 'utf-8'
+};
 function dumpVersion(version, channel = '', maxV = 99) {
     const oldV = version;
     let a = oldV.split('.');
@@ -26,7 +28,7 @@ function dumpVersion(version, channel = '', maxV = 99) {
 
 (async function () {
     try {
-        const checkMaster = await execFileSync('git', ['checkout', 'master'], { encoding: 'utf-8' });
+        const checkMaster = await execFileSync('git', ['checkout', 'master'], { ...options });
         console.log('master分支检出完毕', checkMaster);
         const code = JSON.parse(fs.readFileSync(`${resolve('package.json')}`, 'utf-8'));
         console.log('package解析完成');
@@ -34,12 +36,12 @@ function dumpVersion(version, channel = '', maxV = 99) {
         const new_version = dumpVersion(version);
         console.log('版本号更新完毕', new_version);
         const updateV = await execFileSync('yarn.cmd', ['version', '--new-version', new_version], {
-            encoding: 'utf-8'
+           ...options
         });
         console.log(updateV);
-        const tag1 = execFileSync('git', ['push', '--tags'], { encoding: 'utf-8' });
+        const tag1 = execFileSync('git', ['push', '--tags'], { ...options });
         console.log('tag1创建完毕', tag1);
-        const tag2 = execFileSync('git', ['push', '--follow-tags'], { encoding: 'utf-8' });
+        const tag2 = execFileSync('git', ['push', '--follow-tags'], { ...options });
         console.log('tag1创建完毕', tag2);
     } catch (error) {
         console.log(error);
