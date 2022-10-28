@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/15831434134/branck-test/issues"
   },
-  "homepage": "https://github.com/15831434134/branck-test#readme"
+  "homepage": "https://github.com/15831434134/branck-test#readme",
+  "dependencies": {
+    "branck-test": "^1.0.9"
+  }
 }
