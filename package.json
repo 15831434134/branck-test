@@ -1,6 +1,6 @@
 {
   "name": "branck-test",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "1",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/15831434134/branck-test#readme",
   "dependencies": {
     "branck-test": "^1.0.9",
-    "chalk": "4.1.2"
+    "chalk": "4.1.2",
+    "cross-spawn": "^7.0.3"
   }
 }
