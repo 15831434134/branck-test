@@ -35,7 +35,7 @@ function dumpVersion(version, channel = '', maxV = 99) {
 
 (async function () {
     try {
-        const checkMaster = await execFileSync('git', ['checkout', 'master'], { encoding: 'utf-8' });
+        const checkMaster = await execFileSync('git', ['checkout', 'main'], { encoding: 'utf-8' });
         console.log('master分支检出完毕', checkMaster);
         const code = JSON.parse(fs.readFileSync(`${resolve('package.json')}`, 'utf-8'));
         console.log('package解析完成');
