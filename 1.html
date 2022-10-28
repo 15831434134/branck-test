@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="f">
+    <button onclick="change()">点击</button>
+    <input type="file" id="fileInput" />
+
+    <img id="preview" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.2/axios.js"></script>
+    <script>
+
+        const params = {
+            name: '测试供应商',
+            idcardNo: '130824199088765430',
+            province: '',
+            city: '',
+            address: '',
+            mobile: '',
+            email: '',
+            accountAttribute: 1,
+            type: '电汇',
+            accountName: '',
+            account: '',
+            bank: '',
+            bankSite: '',
+            bankProvince: '',
+            bankCity: ''
+        }
+        for(let i in params) {
+            console.log(i,123);
+        }
+
+        // const fileInput = document.getElementById("fileInput");
+        // const preview = document.getElementById("preview");
+        // const reader = new FileReader();
+        // const params = new FormData();
+
+        // fileInput.onchange = (e) => {
+        //     // reader.readAsDataURL(e.target.files[0]);/
+        //     params.append('files', e.target.files[0]);
+        //     params.append('extParams', 123);
+        //     console.log(params);
+        //     axios({
+        //         url: 'https://mp-live.iqiyi.com/',
+        //         method: 'POST',
+        //         contentType: 'multipart/form-data',
+        //         data: params
+        //     }).then(res => {
+        //         console.log(res)
+        //     })
+        // };
+
+        // reader.onload = (e) => {
+        //     preview.src = e.target.result;
+        //     console.log(e.target.result);
+        // };
+        // reader.onprogress = (e) => {
+        //     console.log(e);
+        //     if (e.loaded && e.total) {
+        //         const percent = (e.loaded / e.total) * 100;
+        //         console.log(`上传进度: ${Math.round(percent)} %`);
+        //     }
+        // }
+
+
+
+        // function change(e){
+        //     var f = document.getElementById("f").files;
+        //     console.log(f);
+        // }
+        // function setInitImg(url, callback) {
+        //     let img = url;//这里是淘宝上随便找的一张图片
+        //     let _ = this
+        //     let imgRes
+        //     getBase64(img, (dataURL) => {
+        //         imgRes = dataURLtoFile(dataURL, img);
+        //         console.log(imgRes)
+        //         callback(imgRes)
+        //     });
+        // }
+
+        // function getBase64(url, callback) {
+        //     //通过构造函数来创建的 img 实例，在赋予 src 值后就会立刻下载图片，相比 createElement() 创建 <img> 省去了 append()，也就避免了文档冗余和污染
+        //     var Img = new Image(),
+        //         dataURL = "";
+        //     Img.src = url + "?v=" + Math.random(); // 处理缓存,fix缓存bug,有缓存，浏览器会报错;
+        //     Img.setAttribute("crossOrigin", "Anonymous"); // 解决控制台跨域报错的问题
+        //     Img.onload = function () {
+        //         //要先确保图片完整获取到，这是个异步事件
+        //         var canvas = document.createElement("canvas"), //创建canvas元素
+        //             width = Img.width, //确保canvas的尺寸和图片一样
+        //             height = Img.height;
+        //         canvas.width = width;
+        //         canvas.height = height;
+        //         canvas.getContext("2d").drawImage(Img, 0, 0, width, height); //将图片绘制到canvas中
+        //         dataURL = canvas.toDataURL("image/jpeg"); //转换图片为dataURL
+        //         callback ? callback(dataURL) : null; //调用回调函数
+        //     };
+        // }
+
+        // function dataURLtoFile(dataurl, filename) {
+        //     //将base64转换为文件，dataurl为base64字符串，filename为文件名（必须带后缀名，如.jpg,.png）
+        //     var arr = dataurl.split(","),
+        //         mime = arr[0].match(/:(.*?);/)[1],
+        //         bstr = atob(arr[1]),
+        //         n = bstr.length,
+        //         u8arr = new Uint8Array(n);
+        //     while (n--) {
+        //         u8arr[n] = bstr.charCodeAt(n);
+        //     }
+        //     return new File([u8arr], filename, { type: mime });
+        // }
+        // setInitImg('http://111.202.75.164:8070/file/get?appId=100000&signType=SHA256&sign=MjFBRTdBMEJGM0UzMkQyMkQ5ODVFM0EzMzIyRDVCNDlDMTlFODM0RjlCMDI0NDk5NUIzNDIxRkNFMUJEODZCQg==&timestamp=2022-10-18+15%3A33%3A19&bizContent=JTdCJTIycGF0aCUyMiUzQSUyMjIwMjIxMDEzMTExNTM2X2MzOTI5ZTQ4MTIxYzQzNGNiJTIyJTJDJTIydHlwZSUyMiUzQTAlN0Q=',(data)=>{
+        //     console.log(data)
+        // })
+
+    </script>
+</body>
+
+</html>
